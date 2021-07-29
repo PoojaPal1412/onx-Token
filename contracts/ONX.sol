@@ -1,16 +1,17 @@
-// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.8.0;
 
-import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol';
-import 'https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol';
+import "OpenZeppelin/openzeppelin-contracts@4.2.0/contracts/token/ERC20/ERC20.sol";
+import "OpenZeppelin/openzeppelin-contracts@4.2.0/contracts/access/Ownable.sol";
 
-        
+
 contract ONX is ERC20,Ownable{
     
     uint public latestTimestamp;
     mapping(string=>uint) public max_supply;
     mapping(string=>bool) public phase_tracker; // true if phase ended
     string[] public phases;
+
     uint public achived_supply_milestone;
     uint public release_period = 7 days;  // 7 days
     uint public inflation_rate = 2;
@@ -85,6 +86,7 @@ contract ONX is ERC20,Ownable{
             inflation_target_supply = achived_supply_milestone + (achived_supply_milestone * inflation_rate)/100;
         }
     }
+
 
     modifier isReleaseTime() {
         require(block.timestamp >= (latestTimestamp+ release_period), "Hold up dude!");
